@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <properties>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
         <parent>
             <artifactId>sky-take-out</artifactId>
@@ -14,7 +14,6 @@
         <modelVersion>4.0.0</modelVersion>
         <artifactId>sky-server</artifactId>
         <dependencies>
-
             <dependency>
                 <groupId>com.sky</groupId>
                 <artifactId>sky-common</artifactId>
@@ -45,8 +44,8 @@
             </dependency>
 
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
                 <scope>runtime</scope>
             </dependency>
 
