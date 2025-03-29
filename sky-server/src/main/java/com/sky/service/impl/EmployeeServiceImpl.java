@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Service
@@ -97,13 +96,47 @@ public class EmployeeServiceImpl implements EmployeeService {
          */
         pageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());//设置分页参数
         Page<Employee>page=employeeMapper.pageQuery(employeePageQueryDTO);//分页查询
-        /**
-         * 将page转换为pageresult
+        /*
+          将page转换为pageresult
          */
         PageResult pageResult=new PageResult();
         pageResult.setTotal(page.getTotal());
         pageResult.setRecords(page.getResult());//设置分页数据
         return pageResult;
     }
-
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     */
+    public void startOrStop(Integer status, Long id) {
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+        employeeMapper.update(employee);
+        /**清除Localthread 中的数据*/
+        BaseContext.removeCurrentId();
+    }
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.update(employee);
+        /**清除Localthread 中的数据*/
+        BaseContext.removeCurrentId();
+    }
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("****");
+        return employee;
+    }
 }

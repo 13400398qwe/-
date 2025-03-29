@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -33,4 +34,16 @@ public interface EmployeeMapper {
      * @return
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 根据id修改员工状态
+     * @param employee
+     *           id
+     *           status
+     *           status 0 禁用，1启用
+     */
+    void update(Employee employee);
+
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
 }
